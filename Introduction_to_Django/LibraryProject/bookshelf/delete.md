@@ -1,4 +1,5 @@
 ```python
+from bookshelf.models import Book
 #delete
 book.delete()
 
