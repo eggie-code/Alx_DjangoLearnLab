@@ -26,6 +26,8 @@ def run_queries():
             print(f"Book Title: {book.title}")
     except Library.DoesNotExist:
         print(f"Library '{library_name}' does not exist.")
+    except Librarian.DoesNotExist:
+        print(f"Librarian '{librarian_name}' does not exist.")
 
 
 if __name__ == "__main__":
