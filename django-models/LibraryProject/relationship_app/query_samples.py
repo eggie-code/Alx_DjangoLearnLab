@@ -7,15 +7,15 @@ django.setup()
 
 
 def run_queries():
-    authors_name = "Author Name"
+    author_name = "Author Name"
     try:
-        author = Author.objects.get(name=authors_name)
+        author = Author.objects.get(name=author_name)
         books_by_author = Book.objects.filter(author=author)
-        print(f"Books by {authors_name}:")
+        print(f"Books by {author_name}:")
         for book in books_by_author:
             print(f"Book Title: {book.title}")
     except Author.DoesNotExist:
-        print(f"Author '{authors_name}' does not exist.")
+        print(f"Author '{author_name}' does not exist.")
 
     library_name = "Library Name"
     try:
