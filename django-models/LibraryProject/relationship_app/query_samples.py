@@ -27,7 +27,7 @@ def run_queries():
     except Library.DoesNotExist:
         print(f"Library '{library_name}' does not exist.")
     try:
-        librarian = Librarian.objects.get(name=librarian_name)
+        librarian = Librarian.objects.get(library=librarian_name)
         libraries_managed = librarian.libraries.all()
         print(f"Libraries managed by {librarian_name}:")
         for library in libraries_managed:
