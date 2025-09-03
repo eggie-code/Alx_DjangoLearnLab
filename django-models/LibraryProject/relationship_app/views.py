@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from .models import Book
 from gjango.views.generic import DetailView
 from .models import Book, Library
 
 # list all books
 
 
-def list_books.html(request):
+def list_books.(request):
     books = Book.objects.all()
     return render(request, 'list_books.html', {'books': books})
 
