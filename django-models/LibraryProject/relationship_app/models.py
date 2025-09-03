@@ -18,7 +18,7 @@ class Book(models.Model):
         return self.title
 
 
-clas Library(models.Model):
+class Library(models.Model):
     name = models.CharField(max_lemgth=100)
     books = models.ManyToManyField(Book, related_name='libraries')
 
