@@ -7,7 +7,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "LibraryProject.settings")
 django.setup()
 
 
-author = Author.objects.get(name="J.K Rowling")
+author = Author.objects.get(name=author_name)
 books_by_author = Book.objects.filter(author=author)
 print("Books by J.K. Rowling:")
 for book in books_by_author:
