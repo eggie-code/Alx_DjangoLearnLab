@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Book
 from django.views.generic import DetailView
-from .models import Book, Library
+from .models import Library
 
 # list all books
 
