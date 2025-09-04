@@ -14,7 +14,7 @@ for book in books_by_author:
     print(f"- {book.title}")
 
 
-library = Library.objects.get(name="Central Library")
+library = Library.objects.get(name=library_name)
 books_in_library = library.books.all()
 print(f"Books in {library.name}:")
 for book in books_in_library:
