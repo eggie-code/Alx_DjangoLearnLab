@@ -9,7 +9,7 @@ from .views import register_view
 
 urlpatterns = [
     path('books/', views.list_books, name='list_books'),
-    path('libraries/<int:pk>/', views.LibraryDetailView.as_view(),
+    path('libraries/<int:pk>/', LibraryDetailView.as_view(),
          name='library-detail'),
 
     path('login/', login_view, name='login'),
