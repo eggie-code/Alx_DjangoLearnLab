@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('relationship/', include('relationship_app.urls')),
+    # Set relationship_app as the default app
+    path('', include('relationship_app.urls')),
 ]
