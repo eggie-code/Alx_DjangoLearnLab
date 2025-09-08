@@ -7,7 +7,7 @@ django.setup()
 
 
 author_name = "George Orwell"
-author = Author.objects.get(name=author_name).first()
+author = Author.objects.filter(name=author_name).first()
 if author:
     books_by_author = Book.objects.get(author=author)
     print(f"Books by {author_name}:")
