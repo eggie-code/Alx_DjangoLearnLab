@@ -9,7 +9,7 @@ django.setup()
 author_name = "George Orwell"
 author = Author.objects.create(name=author_name).first()
 if author:
-    books_by_author = Book.objects.filter(author=author)
+    books_by_author = Book.objects.get(author=author)
     print(f"Books by {author_name}:")
     for book in books_by_author:
         print(f" - {book.title}")
