@@ -17,7 +17,7 @@ else:
     print(f"No author found with the name {author_name}.")
 
 library_name = "Central Library"
-library = Library.objects.filter(name=library_name).first()
+library = Library.objects.get(name=library_name).first()
 if library:
     print(f"\nBooks in {library.name}:")
     for book in library.books.all():
