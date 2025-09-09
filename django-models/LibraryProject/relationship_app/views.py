@@ -6,6 +6,7 @@ from .models import Book, Library, UserProfile
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.http import HttpResponse
+from .models import Library, Book
 
 
 def register(request):
