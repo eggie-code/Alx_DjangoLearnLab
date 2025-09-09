@@ -1,9 +1,7 @@
 from django.urls import path
-from .views import list_books
-from .views import LibraryDetailView
-from .views import register_request
-from .views import login_request
-from .views import logout_request
+from .views import list_books, LibraryDetailView, register_request, login_request, logout_request
+from django.contrib.auth import views as auth_views
+from . import views
 
 
 urlpatterns = [
@@ -15,7 +13,8 @@ urlpatterns = [
          name='library_detail'),
 
     # Authentication URLs
-    path('register/', register_request, name='register'),
-    path('login/', login_request, name='login'),
-    path('logout/', logout_request, name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(
+        template_name='relationship_app/logout.html'), name='logout'),
+    path('register/', views.register_request, name='register'),
 ]
