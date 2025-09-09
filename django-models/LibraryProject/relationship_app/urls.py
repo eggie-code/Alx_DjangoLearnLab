@@ -27,7 +27,7 @@ urlpatterns = [
     path('member-dashboard/', member_view, name='member_view'),
 
     # URLs for custom permission-based views
-    path('books/add/', add_book, name='add_book'),
+    path('add_book/', add_book, name='add_book'),
     path('books/edit/<int:pk>/', edit_book, name='edit_book'),
     path('books/delete/<int:pk>/', delete_book, name='delete_book'),
 
