@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from .models import Library
 
 
-def book_list(request):
+def list_books(request):
     """Function-based view to list all books."""
     books = Book.objects.all()
     context = {'books': books}
