@@ -15,10 +15,10 @@ print(f"Books by {author_name}: {[book.title for book in books_by_author]}")
 
 # Query 2: List all books in a library
 library_name = "City Library"
-library = Library.objects.get(name=library_name)
+library = Library.objects.get(name=library)
 books_in_library = library.books.all()
-print(f"Books in {library_name}: {[book.title for book in books_in_library]}")
+print(f"Books in {library}: {[book.title for book in books_in_library]}")
 
 # Query 3: Retrieve the librarian for a library
 librarian = Librarian.objects.get(library=library)
-print(f"Librarian for {library_name}: {librarian.name}")
+print(f"Librarian for {library}: {librarian.name}")
