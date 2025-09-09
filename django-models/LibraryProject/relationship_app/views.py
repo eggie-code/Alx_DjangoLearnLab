@@ -6,7 +6,7 @@ from .models import Book, Library
 from django.views.generic import DetailView
 
 
-def register_request(request):
+def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -21,7 +21,7 @@ def register_request(request):
     return render(request=request, template_name="relationship_app/register.html", context={"form": form})
 
 
-def login_request(request):
+def login(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -41,7 +41,7 @@ def login_request(request):
     return render(request=request, template_name="relationship_app/login.html", context={"form": form})
 
 
-def logout_request(request):
+def logout(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("login")
