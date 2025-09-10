@@ -1,4 +1,4 @@
-from .forms import SearchForm
+from .forms import ExampleForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from .models import Post
@@ -49,11 +49,11 @@ def post_delete(request, pk):
 
 def search(request):
     if request.method == 'POST':
-        form = SearchForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             search_term = form.cleaned_data['search_term']
             results = MyModel.objects.filter(name=search_term)
             # Show results
     else:
-        form = SearchForm()
+        form = ExampleForm()
     return render(request, 'your_template.html', {'form': form})
