@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$wi_m!tn+=u2-=c$zvx+^ziy8k4e3tdz(ajc&#^-m6m7k!a8g%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'relationship_app',
     'bookshelf',
-
+    'csp',
 ]
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -133,3 +135,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/relationship_app/books/"
 # Redirect to the login page after logout
 LOGOUT_REDIRECT_URL = "/relationship_app/login/"
+
+# Enforce secure cookies, ensuring they are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Add additional browser protections
+# Prevents content sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Protects against clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Redirects all non-HTTPS requests to HTTPS
+# Note: Requires a proper SSL certificate setup on your server
+SECURE_SSL_REDIRECT = True
+# These headers help ensure all traffic is secured over HTTPS
+SECURE_HSTS_SECONDS = 3600  # Sets HSTS header for 1 hour
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
+CSP_DEFAULT_SRC = ("'self'",)

@@ -1,6 +1,8 @@
+from .forms import SearchForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from .models import Post
+from .models import Book
 
 # View to list all posts
 
@@ -43,4 +45,15 @@ def post_delete(request, pk):
         post.delete()
         return redirect('post_list')
     return render(request, 'post_confirm_delete.html', {'post': post})
-# Create your views here.
+
+
+def search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data['search_term']
+            results = MyModel.objects.filter(name=search_term)
+            # Show results
+    else:
+        form = SearchForm()
+    return render(request, 'your_template.html', {'form': form})
