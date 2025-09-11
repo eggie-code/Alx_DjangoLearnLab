@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'bookshelf',
 ]
 
-AUTH_USER_MODEL = 'bookshelf.CustomUser'  # Custom user model setting
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
