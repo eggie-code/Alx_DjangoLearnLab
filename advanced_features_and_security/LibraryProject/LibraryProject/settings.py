@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
 ]
+AUTH_USER_MODEL = 'bookshelf.CustomUser'  # custom user model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
