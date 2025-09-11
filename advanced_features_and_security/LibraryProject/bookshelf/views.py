@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.http import HttpResponse
 
 
+
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -95,7 +96,7 @@ def member_view(request):
     return render(request, 'bookshelf/member_view.html')
 
 
-@permission_required('bookshelf.can_add_book')
+@permission_required('bookshelf.can_add_book', raise_exception=True)
 def add_book(request):
     """View to add a new book. Only users with the 'can_add_book' permission can access."""
     # This is a placeholder. A real view would handle a form submission.
@@ -104,7 +105,7 @@ def add_book(request):
     return render(request, 'bookshelf/add_book.html')
 
 
-@permission_required('bookshelf.can_change_book')
+@permission_required('bookshelf.can_change_book', raise_exception=True)
 def edit_book(request, pk):
     """View to edit an existing book. Only users with 'can_change_book' can access."""
     book = get_object_or_404(Book, pk=pk)
@@ -114,7 +115,7 @@ def edit_book(request, pk):
     return render(request, 'bookshelf/edit_book.html', {'book': book})
 
 
-@permission_required('bookshelf.can_delete_book')
+@permission_required('bookshelf.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
     """View to delete a book. Only users with 'can_delete_book' can access."""
     book = get_object_or_404(Book, pk=pk)
