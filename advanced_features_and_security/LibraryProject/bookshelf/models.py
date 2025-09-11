@@ -1,9 +1,11 @@
 from django.db import models
-from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import gettext_lazy as _
+
 
 # Create your models here.
 
@@ -63,22 +65,24 @@ class UserProfile(models.Model):
         return f"{self.user.username} - {self.role}"
 
 
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
-    fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name',
-         'last_name', 'date_of_birth', 'profile_photo')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff',
-         'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+class CustomUser(AbstractUser):
+    #  custom fields
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(
+        upload_to='profile_photos/', null=True, blank=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_groups',  # A unique name for the reverse relationship
+        blank=True,
+        help_text=('The groups this user belongs to.'),
+        verbose_name='groups',
     )
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'date_of_birth', 'profile_photo'),
-        }),
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_permissions',  # Another unique name
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
     )
-    list_display = ('username', 'email', 'date_of_birth', 'is_staff')
-    search_fields = ('username', 'email')
-    ordering = ('username',)
