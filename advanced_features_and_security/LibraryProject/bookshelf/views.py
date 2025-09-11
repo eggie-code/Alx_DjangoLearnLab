@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from .models import Book, Library, UserProfile
+from .models import Book, Library, book_list, UserProfile
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.http import HttpResponse
-from .models import Library, Book
+
 
 def register(request):
     if request.method == "POST":
@@ -20,7 +20,7 @@ def register(request):
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
     form = UserCreationForm()
-    return render(request=request, template_name="relationship_app/register.html", context={"form": form})
+    return render(request=request, template_name="bookshelf/register.html", context={"form": form})
 
 
 def login(request):
@@ -40,7 +40,7 @@ def login(request):
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request=request, template_name="relationship_app/login.html", context={"form": form})
+    return render(request=request, template_name="bookshelf/login.html", context={"form": form})
 
 
 def logout(request):
@@ -49,17 +49,17 @@ def logout(request):
     return redirect("login")
 
 
-def list_books(request):
+def book_list(request):
     """Function-based view to list all books."""
     books = Book.objects.all()
     context = {'books': books}
-    return render(request, 'relationship_app/list_books.html', context)
+    return render(request, 'bookshelf/book_list.html', context)
 
 
 class LibraryDetailView(DetailView):
     """Class-based view to display details for a specific library."""
     model = Library
-    template_name = 'relationship_app/library_detail.html'
+    template_name = 'bookshelf/library_detail.html'
     context_object_name = 'library'
 
 
