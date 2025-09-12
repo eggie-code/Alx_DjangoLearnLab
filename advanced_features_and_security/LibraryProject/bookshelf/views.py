@@ -6,7 +6,7 @@ from .models import Book, Library, book_list, UserProfile
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.http import HttpResponse
-from .forms import SearchForm
+from .forms import ExampleForm
 
 
 
@@ -132,7 +132,7 @@ from .models import Book
 from .forms import SearchForm
 
 def search_books(request):
-    form = SearchForm(request.GET)
+    form = ExampleForm(request.GET)
     books = []
 
     if form.is_valid():
