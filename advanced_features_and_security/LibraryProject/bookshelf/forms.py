@@ -15,7 +15,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('username', 'email', 'phone_number')
         
-class SearchForm(forms.Form):
+class ExampleForm(forms.Form):
     title = forms.CharField(max_length=100, required=False, label='Book Title')
     author = forms.CharField(max_length=100, required=False, label='Author Name')
     library = forms.CharField(max_length=100, required=False, label='Library Name')
