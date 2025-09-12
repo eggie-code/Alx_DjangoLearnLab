@@ -145,9 +145,10 @@ X_FRAME_OPTIONS = 'DENY'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True   # Ensure CSRF cookies are only sent over HTTPS
 # HSTS settings to enforce HTTPS
-SECURE_HSTS_SECONDS = 3600  # Adjust if needed
+SECURE_HSTS_SECONDS =  31536000 # Force HTTPS for one year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True 
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
 
 # Content Security Policy (CSP) settings
 # Allow styles from self and Google Fonts, scripts from self and Google CDN
