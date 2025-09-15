@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from .models import Book, Library, UserProfile
+from .models import Book, Library, book_list, UserProfile
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.http import HttpResponse
-from .models import Library, Book
+from .forms import ExampleForm
+
 
 
 def register(request):
@@ -21,7 +22,7 @@ def register(request):
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
     form = UserCreationForm()
-    return render(request=request, template_name="relationship_app/register.html", context={"form": form})
+    return render(request=request, template_name="bookshelf/register.html", context={"form": form})
 
 
 def login(request):
@@ -41,7 +42,7 @@ def login(request):
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request=request, template_name="relationship_app/login.html", context={"form": form})
+    return render(request=request, template_name="bookshelf/login.html", context={"form": form})
 
 
 def logout(request):
@@ -50,17 +51,17 @@ def logout(request):
     return redirect("login")
 
 
-def list_books(request):
+def book_list(request):
     """Function-based view to list all books."""
     books = Book.objects.all()
     context = {'books': books}
-    return render(request, 'relationship_app/list_books.html', context)
+    return render(request, 'bookshelf/book_list.html', context)
 
 
 class LibraryDetailView(DetailView):
     """Class-based view to display details for a specific library."""
     model = Library
-    template_name = 'relationship_app/library_detail.html'
+    template_name = 'bookshelf/library_detail.html'
     context_object_name = 'library'
 
 
@@ -81,48 +82,62 @@ def is_member(user):
 @user_passes_test(is_admin)
 def admin_view(request):
     """View only accessible by Admin users."""
-    return render(request, 'relationship_app/admin_view.html')
+    return render(request, 'bookshelf/admin_view.html')
 
 
 @user_passes_test(is_librarian)
 def librarian_view(request):
     """View only accessible by Librarian users."""
-    return render(request, 'relationship_app/librarian_view.html')
+    return render(request, 'bookshelf/librarian_view.html')
 
 
 @user_passes_test(is_member)
 def member_view(request):
     """View only accessible by Member users."""
-    return render(request, 'relationship_app/member_view.html')
+    return render(request, 'bookshelf/member_view.html')
 
 
-@permission_required('relationship_app.can_add_book')
+@permission_required('bookshelf.can_add_book', raise_exception=True)
 def add_book(request):
     """View to add a new book. Only users with the 'can_add_book' permission can access."""
     # This is a placeholder. A real view would handle a form submission.
     if request.method == "POST":
         return HttpResponse("Book added successfully!")
-    return render(request, 'relationship_app/add_book.html')
+    return render(request, 'bookshelf/add_book.html')
 
 
-@permission_required('relationship_app.can_change_book')
+@permission_required('bookshelf.can_change_book', raise_exception=True)
 def edit_book(request, pk):
     """View to edit an existing book. Only users with 'can_change_book' can access."""
     book = get_object_or_404(Book, pk=pk)
     # This is a placeholder. A real view would handle a form submission.
     if request.method == "POST":
         return HttpResponse(f"Book '{book.title}' edited successfully!")
-    return render(request, 'relationship_app/edit_book.html', {'book': book})
+    return render(request, 'bookshelf/edit_book.html', {'book': book})
 
 
-@permission_required('relationship_app.can_delete_book')
+@permission_required('bookshelf.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
     """View to delete a book. Only users with 'can_delete_book' can access."""
     book = get_object_or_404(Book, pk=pk)
     if request.method == "POST":
         book.delete()
         return HttpResponse("Book deleted successfully!")
-    return render(request, 'relationship_app/delete_book_confirm.html', {'book': book})
+    return render(request, 'bookshelf/delete_book_confirm.html', {'book': book})
 
 
-# Create your views here.
+# views.py
+from django.shortcuts import render
+from .models import Book
+from .forms import SearchForm
+
+def search_books(request):
+    form = ExampleForm(request.GET)
+    books = []
+
+    if form.is_valid():
+        title = form.cleaned_data['title']
+        books = Book.objects.filter(title__icontains=title)
+
+    return render(request, 'bookshelf/book_list.html', {'books': books, 'form': form})
+

@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$wi_m!tn+=u2-=c$zvx+^ziy8k4e3tdz(ajc&#^-m6m7k!a8g%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf',
+    'csp',
 ]
 AUTH_USER_MODEL = 'bookshelf.CustomUser'  # custom user model
 
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',  # Content Security Policy middleware
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -130,3 +132,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/relationship_app/books/"
 # Redirect to the login page after logout
 LOGOUT_REDIRECT_URL = "/relationship_app/login/"
+
+# Protect against XSS
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent MIME-type sniffing(multipurpose internet mail extensions)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'
+# Use secure cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True   # Ensure CSRF cookies are only sent over HTTPS
+# HSTS settings to enforce HTTPS
+SECURE_HSTS_SECONDS =  31536000 # Force HTTPS for one year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True 
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Content Security Policy (CSP) settings
+# Allow styles from self and Google Fonts, scripts from self and Google CDN
+#restricts script and style sources to trusted origins only
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_SCRIPT_SRC = ("'self'", 'https://ajax.googleapis.com')
