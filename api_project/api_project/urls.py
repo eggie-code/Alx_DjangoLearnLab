@@ -1,5 +1,5 @@
 """
-URL configuration for advanced_api_project project.
+URL configuration for api_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/dev/topics/http/urls/
@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD:advanced-api-project/advanced_api_project/advanced_api_project/urls.py
-=======
-    path('bookshelf/', include('bookshelf.urls')),
+    path('api/', include('api.urls')),
 
->>>>>>> e414b0a144ea75587cfd36b0bc33177dfb0b565b:advanced_features_and_security/LibraryProject/LibraryProject/urls.py
+    # token login endpoint
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
