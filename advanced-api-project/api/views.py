@@ -8,7 +8,8 @@ from rest_framework.permissions import ISAuthenticatedOrReadOnly, IsAuthenticate
 class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]  # anyone can view
+    permission_classes = [
+        permissions.ISAuthenticatedOrReadOnly]  # anyone can view
 
 # get books - rettrieve a single book
 
@@ -16,7 +17,7 @@ class ListView(generics.ListAPIView):
 class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.ISAuthenticatedOrReadonly]
 
 # POST books - Create a new book (authenticated users only)
 
