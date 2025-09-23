@@ -19,9 +19,4 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD:advanced-api-project/advanced_api_project/advanced_api_project/urls.py
-=======
-    path('bookshelf/', include('bookshelf.urls')),
-
->>>>>>> e414b0a144ea75587cfd36b0bc33177dfb0b565b:advanced_features_and_security/LibraryProject/LibraryProject/urls.py
 ]

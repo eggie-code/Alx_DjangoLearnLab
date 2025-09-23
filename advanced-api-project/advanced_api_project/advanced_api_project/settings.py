@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6#(qkn@r9!bo*a@9)c&77-a)s)d#57ax0f#n3o!k-b9%qwbnuu'
+SECRET_KEY = 'django-insecure-+ph)o9+m++lj7#%5n7a!ibym-*$tef_o4vm=$@^i&lfvl3y^xc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,16 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD:advanced-api-project/advanced_api_project/advanced_api_project/settings.py
     'rest_framework',
     'api',
 ]
-=======
-    'bookshelf',
-    'csp',
-]
-AUTH_USER_MODEL = 'bookshelf.CustomUser'  # custom user model
->>>>>>> e414b0a144ea75587cfd36b0bc33177dfb0b565b:advanced_features_and_security/LibraryProject/LibraryProject/settings.py
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,10 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD:advanced-api-project/advanced_api_project/advanced_api_project/settings.py
-=======
-    'csp.middleware.CSPMiddleware',  # Content Security Policy middleware
->>>>>>> e414b0a144ea75587cfd36b0bc33177dfb0b565b:advanced_features_and_security/LibraryProject/LibraryProject/settings.py
 ]
 
 ROOT_URLCONF = 'advanced_api_project.urls'
@@ -133,39 +122,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD:advanced-api-project/advanced_api_project/advanced_api_project/settings.py
-=======
-
-
-# existing settings...
-
-# Redirect to the book list after login
-LOGIN_REDIRECT_URL = "/relationship_app/books/"
-# Redirect to the login page after logout
-LOGOUT_REDIRECT_URL = "/relationship_app/login/"
-
-# Protect against XSS
-SECURE_BROWSER_XSS_FILTER = True
-
-# Prevent MIME-type sniffing(multipurpose internet mail extensions)
-SECURE_CONTENT_TYPE_NOSNIFF = True
-
-# Prevent clickjacking
-X_FRAME_OPTIONS = 'DENY'
-# Use secure cookies
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True   # Ensure CSRF cookies are only sent over HTTPS
-# HSTS settings to enforce HTTPS
-SECURE_HSTS_SECONDS =  31536000 # Force HTTPS for one year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True 
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Content Security Policy (CSP) settings
-# Allow styles from self and Google Fonts, scripts from self and Google CDN
-#restricts script and style sources to trusted origins only
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
-CSP_SCRIPT_SRC = ("'self'", 'https://ajax.googleapis.com')
->>>>>>> e414b0a144ea75587cfd36b0bc33177dfb0b565b:advanced_features_and_security/LibraryProject/LibraryProject/settings.py
