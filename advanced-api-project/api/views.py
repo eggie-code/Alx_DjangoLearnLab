@@ -1,44 +1,21 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework.permission import ISAuthenticatedOrReadOnly, IsAuthenticated
-# get books -list all books
+
+# This view handles retrieving a list of books and creating a new book.
 
 
-class ListView(generics.ListAPIView):
+class BookListCreateAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [
-        permissions.ISAuthenticatedOrReadOnly]  # anyone can view
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # For a list view, only authenticated users can create (post), but anyone can view (get).
 
-# get books - rettrieve a single book
+# This view handles retrieving, updating, and deleting a single book.
 
 
-class DetailView(generics.RetrieveAPIView):
+class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.ISAuthenticatedOrReadonly]
-
-# POST books - Create a new book (authenticated users only)
-
-
-class CreateView(generics.CreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # only logged-in users
-
-# PUT books - Update a book (authenticated users only)
-
-
-class UpdateView(generics.UpdateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # only logged-in users
-
-# DELETE books- Delete a book (authenticated users only)
-
-
-class DeleteView(generics.DestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # only logged-in users
+    permission_classes = [permissions.IsAuthenticated]
+    # This view requires authentication for all actions (GET, PUT, DELETE).
