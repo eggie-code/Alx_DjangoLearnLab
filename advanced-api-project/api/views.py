@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework import generics, ISAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework import generics, permission
 # get books -list all books
 
 
