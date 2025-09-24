@@ -1,12 +1,13 @@
 from django.urls import path
-from . import views
+from .views import BookListCreateAPIView, BookRetrieveUpdateDestroyAPIView
+
 
 urlpatterns = [
-    path('books/', views.BookListView.as_view(), name='book-list'),
-    path('books/<int:pk>/', views.BookDetailView.as_view(), name='book-detail'),
-    path('books/create/', views.BookCreateView.as_view(), name='book-create'),
-    path('books/<int:pk>/update/',
-         views.BookUpdateView.as_view(), name='books/update'),
+    # the url maps to view that lists all books and allows creating a new one
+    path('books/', views.BookListCreateAPIView.as_view(), name='book-list-create'),
+
+    # URL maps to the view that retrieves, updates, or deletes a specific book.
+    # The <int:pk> part captures the primary key from the URL.
     path('books/<int:pk>/delete/',
-         views.BookDeleteView.as_view(), name='books/delete'),
+         BookRetreiveUpdateDestroyAPUView.as_view(), name='book-detail'),
 ]
