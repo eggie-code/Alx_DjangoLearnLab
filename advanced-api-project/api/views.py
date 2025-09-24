@@ -1,8 +1,7 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated,
+from rest_framework.permission import IsAuthenticatedOrReadOnly, IsAuthenticated, permissions
 from .models import Book
 from .serializers import BookSerializer
 from rest_framework import generics, filters
-from django_filters import DjangoFilterBackend
 from django_filters import rest_framework
 
 # List all books, support filtering, serching and ordering

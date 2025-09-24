@@ -9,5 +9,7 @@ urlpatterns = [
     # URL maps to the view that retrieves, updates, or deletes a specific book.
     # The <int:pk> part captures the primary key from the URL.
     path('books/<int:pk>/delete/',
-         BookRetreiveUpdateDestroyAPUView.as_view(), name='books/delete', name='books/update'),
+         BookRetreiveUpdateDestroyAPUView.as_view(), name='books/delete',),
+    path('books/<int:pk>/update/',
+         BookRetreiveUpdateDestroyAPUView.as_view(), name='books/update',),
 ]
