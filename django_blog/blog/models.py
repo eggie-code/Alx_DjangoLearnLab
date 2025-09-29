@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, title, author, content, published_date
 
 
 class Post(models.Model):
