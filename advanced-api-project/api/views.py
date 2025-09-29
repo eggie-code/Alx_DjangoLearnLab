@@ -1,4 +1,4 @@
-from rest_framework.permission import IsAuthenticatedOrReadOnly, IsAuthenticated, permissions
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, permissions
 from .models import Book
 from .serializers import BookSerializer
 from rest_framework import generics, filters
