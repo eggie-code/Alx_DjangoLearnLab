@@ -1,13 +1,21 @@
-{% extends 'blog/base.html' %}
-{% block content %}
-<h2>Welcome, {{ user.username }}</h2>
+<!-- templates/register.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
 
-<form method="post">
-    {% csrf_token %}
-    <label for="email">Email:</label>
-    <input type="email" name="email" value="{{ user.email }}">
-    <button type="submit">Update</button>
-</form>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
 
-<a href="{% url 'logout' %}">Logout</a>
-{% endblock %}
+<body>
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+</body>
+
+</html>
