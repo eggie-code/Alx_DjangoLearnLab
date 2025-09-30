@@ -46,7 +46,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
+    template_name = 'blog/post_view.html'
     context_object_name = 'post'
 
 # Create a new post (only for logged-in users)
@@ -55,7 +55,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
-    template_name = 'blog/post_form.html'
+    template_name = 'blog/post_create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # Set author
@@ -67,7 +67,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
-    template_name = 'blog/post_form.html'
+    template_name = 'blog/post_edit.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # Ensure author doesn't change
@@ -82,7 +82,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'blog/post_confirm_delete.html'
+    template_name = 'blog/post_delete.html'
     success_url = reverse_lazy('post-list')
 
     def test_func(self):
