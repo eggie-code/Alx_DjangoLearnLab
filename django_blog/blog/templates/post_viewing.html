@@ -8,10 +8,10 @@
 
 {% if user == post.author %}
 <p>
-    <a href="{% url 'post-update' post.pk %}">✏️ Edit</a> |
-    <a href="{% url 'post-delete' post.pk %}">🗑️ Delete</a>
+    <a href="{% url 'post-update' post.pk %}"> Edit</a> |
+    <a href="{% url 'post-delete' post.pk %}"> Delete</a>
 </p>
 {% endif %}
 
-<a href="{% url 'post-list' %}">⬅️ Back to Posts</a>
+<a href="{% url 'post-list' %}"> Back to Posts</a>
 {% endblock %}
