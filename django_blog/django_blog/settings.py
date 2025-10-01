@@ -156,3 +156,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
+# Authentication Redirects
+LOGIN_REDIRECT_URL = '/'      # Redirects to the homepage after successful login
+LOGOUT_REDIRECT_URL = '/login'  # Redirects to the login page after logout
