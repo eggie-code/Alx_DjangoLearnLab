@@ -26,3 +26,11 @@ def register(request):
         form = UserRegistrationForm()
 
     return render(request, 'blog/register.html', {'form': form, 'title': 'Register'})
+
+
+@login_required
+def profile(request):
+    """
+    Allows authenticated users to view their profile page.
+    """
+    return render(request, 'blog/profile.html', {'title': 'Profile'})
