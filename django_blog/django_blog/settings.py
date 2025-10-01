@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os  # Ensure this is at the top
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -73,23 +74,16 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# django_blog/settings.py
-
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangoblog',      # Your PostgreSQL database name
-        'USER': 'bloguser',        # Your PostgreSQL username
-        'PASSWORD': 'mypassword',  # Your PostgreSQL password
-        'HOST': 'localhost',       # Or the host address
-        'PORT': '',                # Empty string means default (5432)
+        'NAME': 'django_blog_db',  # Your database name
+        'USER': 'eggie',    # Your database user
+        'PASSWORD': 'database',  # Your database password
+        'HOST': '127.0.0.1',       # Or the host where PostgreSQL is running
+        'PORT': '5432',
     }
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -131,3 +125,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ... other settings ...
+
+# Configuration for templates (HTML files)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # Project-level templates (optional)
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,  # Tells Django to look inside the 'templates' folder of each installed app
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
