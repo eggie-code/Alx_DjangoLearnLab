@@ -9,7 +9,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
 
     # Django's Built-in Authentication URLs (for Login/Logout/Password Reset)
-    # The 'login' and 'logout' names are automatically generated here.
+    # The 'login' and 'logout' names are automatically generated
     path('', include('django.contrib.auth.urls')),
 
     # Custom Profile Path
