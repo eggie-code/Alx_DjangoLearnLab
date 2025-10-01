@@ -34,3 +34,8 @@ def profile(request):
     Allows authenticated users to view their profile page.
     """
     return render(request, 'blog/profile.html', {'title': 'Profile'})
+
+
+def home(request):
+    """Basic view to display the home page using base.html."""
+    return render(request, 'blog/base.html', {})
