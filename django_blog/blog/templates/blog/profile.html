@@ -1,0 +1,12 @@
+<!-- profile.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1>Profile</h1>
+<form method="post">
+    {% csrf_token %}
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ user.email }}"><br><br>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}
