@@ -1,0 +1,18 @@
+DOCUMENTATION:
+1.Authentication: This allow users to register,login,logout and manage their profiles.
+
+2.Registration:It can be done by providing email,username and password.
+
+3.Login: It is done by providing usename and password.
+
+4.Logout: Done by clicking logout link.
+
+5.Profile: Management of profile user can view and edit their profile.
+
+TESTING:
+1.Register a new user: Go to the registration page and fill out the form with a username, email, and password.
+
+2.Login: Go to the login page and fill out the form with your username and password.
+
+3.Profile: Go to the profile page and view your profile details and you can edit
+
