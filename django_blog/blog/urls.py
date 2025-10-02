@@ -6,7 +6,7 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView
-)  # Import the new CBVs
+)  # Import  CBVs
 
 urlpatterns = [
     # General Blog Paths
@@ -35,6 +35,9 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(),
          name='post-delete'),  # delete post
 
+    path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
+]
 
 
 ]
