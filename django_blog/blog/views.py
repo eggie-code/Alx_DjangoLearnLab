@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from .models import User
-from django.views.generic import ListView, DetailView, CommentCreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CommentCreateView, CommentUpdateView, CommentDeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
