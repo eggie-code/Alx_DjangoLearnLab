@@ -118,6 +118,55 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     # Use UserPassesTestMixin: Check if the current user is the author of the post
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author
-        return True
-        return False
+        return self.request.user == post.author
+
+
+# function view for adding comment
+@login_required
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            messages.success(request, "Your comment has been added.")
+            # Redirects back to the post detail page
+            return redirect('post-detail', pk=post.pk)
+
+    # In case of get or invalid form POST, just redirect back
+    return redirect('post-detail', pk=post.pk)
+
+
+# update: CBV for editing a comment only author
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def get_success_url(self):
+        messages.success(self.request, "Your comment has been updated.")
+        # Redirects to the post detail page
+        return reverse('post-detail', kwargs={'pk': self.object.post.pk})
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+
+# delete: CBV for deleting a comment only author
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/comment_confirm_delete.html'
+
+    def get_success_url(self):
+        messages.success(self.request, "Your comment has been deleted.")
+        # Redirects to the post detail page
+        return reverse('post-detail', kwargs={'pk': self.object.post.pk})
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
