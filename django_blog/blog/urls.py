@@ -6,4 +6,11 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile, name='profile'),
+
+    # URL patterns for CRUD operations.
+    path('', views.PostListView.as_view(), name='post_list'),
+    path('<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
+    path('new/', views.PostCreateView.as_view(), name='post_create'),
+    path('<int:pk>/edit/', views.PostUpdateView.as_view(), name='post_update'),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
 ]
