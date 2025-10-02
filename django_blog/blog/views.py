@@ -13,11 +13,19 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, comment
 from django.urls import reverse_lazy  # Used for redirects in CBVs
-
+from .forms import (
+    UserRegisterForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
+    PostForm,
+    CommentForm
+)
 
 # home view
+
+
 def home(request):
     """Basic view to display the home page using base.html."""
     return render(request, 'blog/base.html', {})

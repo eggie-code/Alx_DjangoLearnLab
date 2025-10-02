@@ -32,6 +32,8 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+# to automatically create/update profile
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -42,6 +44,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+# comment model
 
 
 class Comment(models.Model):
