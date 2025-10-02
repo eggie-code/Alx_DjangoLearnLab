@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -25,3 +25,7 @@ class PostForm(forms.ModelForm):
         # We only let the user input title and content.
         # 'author' will be set automatically by the view.
         fields = ['title', 'content']
+        widgets = {
+            # Make content textarea larger
+            'content': forms.Textarea(attrs={'rows': 10}),
+        }

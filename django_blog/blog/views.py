@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -110,4 +110,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     # Use UserPassesTestMixin: Check if the current user is the author of the post
     def test_func(self):
         post = self.get_object()
-        return self.request.user == post.author
+        if self.request.user == post.author
+        return True
+        return False
