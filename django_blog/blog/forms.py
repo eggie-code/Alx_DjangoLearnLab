@@ -1,10 +1,12 @@
 from django import forms
-from .models import Post, Profile
+from .models import Post, Profile, comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
 class UserRegistrationForm(UserCreationForm):
+     email = forms.EmailField(required=True)
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'password2')
@@ -14,6 +16,19 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['email'].required = True
 
 # creation and editing
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'location']
+
 
 
 class PostForm(forms.ModelForm):
@@ -28,4 +43,15 @@ class PostForm(forms.ModelForm):
         widgets = {
             # Make content textarea larger
             'content': forms.Textarea(attrs={'rows': 10}),
+        }
+
+
+#comment form
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Write your comment here...'}),
         }
