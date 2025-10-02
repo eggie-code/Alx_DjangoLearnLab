@@ -1,5 +1,9 @@
 from django.urls import path
-from . import views
+from . import views(
+    CommentCreateView,
+    CommentUpdateView,
+    CommentDeleteView,
+)
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -13,4 +17,10 @@ urlpatterns = [
     path('post/new/', views.PostCreateView.as_view(), name='post_create'),
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
+
+    path('comment/<int:pk>/', views.post_detail, name='post_detail'),
+    path('posts/<int:post_id>/comments/new/',
+         CommentCreateView.as_view(), name='comment-create'),
+    path('comment/<int:pk>/update/', views.edit_comment, name='update_comment'),
+    path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
 ]
