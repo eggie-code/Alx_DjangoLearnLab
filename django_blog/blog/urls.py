@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views import PostByTagListView
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
@@ -20,6 +20,7 @@ urlpatterns = [
     path('comment/<int:pk>/update/', views.edit_comment, name='update_comment'),
     path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
 
+    path('tags/<slug:tag_slug>/', PostByTagListView.as_view(), name='post_by_tag'),
     path('tags/<slug:tag_slug>/', views.tag_posts, name='tag_posts'),
     path('search/', views.search, name='search'),
 ]
