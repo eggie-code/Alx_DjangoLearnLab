@@ -5,6 +5,7 @@ from .serializers import PostSerializer, CommentSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .serializers import PostSerializer
+from .models import Post
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -43,6 +44,6 @@ class CommentViewSet(viewsets.ModelViewSet):
 def user_feed(request):
     following_users = request.user.following.all()
     posts = Post.objects.filter(
-        author__in=following_users).order_by
+        author__in=following_users).order_by('-created_at')
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
