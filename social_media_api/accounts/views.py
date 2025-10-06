@@ -2,11 +2,11 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 User = get_user_model()
 
@@ -18,14 +18,14 @@ class RegisterView(generics.CreateAPIView):
 
 class ProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return self.request.user
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def follow_user(request, user_id):
     try:
         user_to_follow = User.objects.get(id=user_id)
@@ -38,7 +38,7 @@ def follow_user(request, user_id):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def unfollow_user(request, user_id):
     try:
         user_to_unfollow = User.objects.get(id=user_id)
