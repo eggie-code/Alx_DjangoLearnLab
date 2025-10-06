@@ -7,13 +7,23 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import permissions
+from rest_framework.views import APIView
 
-User = get_user_model()
+CustomUser = get_user_model()
 
 
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
+class RegisterView(generics.GenericAPIView):
+    queryset = CustomUser.objects.all()
     serializer_class = RegisterSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
