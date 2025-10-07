@@ -64,7 +64,7 @@ def like_post(request, pk):
     Like = apps.get_model('posts', 'Like')
 
     user = request.user
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
 
     # Check if already liked
     like, created = Like.objects.get_or_create(user=user, post=post)
