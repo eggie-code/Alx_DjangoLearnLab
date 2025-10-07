@@ -66,12 +66,10 @@ def like_post(request, pk):
     user = request.user
     post = get_object_or_404(Post, pk=pk)
 
-    # Check if already liked
     like, created = Like.objects.get_or_create(user=user, post=post)
     if not created:
         return Response({"detail": "Already liked."}, status=400)
 
-    # Optionally: Create a notification
     Notification = apps.get_model('notifications', 'Notification')
     Notification.objects.create(
         recipient=post.author,
